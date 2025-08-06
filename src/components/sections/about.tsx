@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { PrimaryButton } from "@/components/ui/enhanced-button";
+import { useLanguage } from "@/contexts/language-context";
 import {
   Award,
   Users,
@@ -18,6 +18,7 @@ import {
 
 export function About() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { t } = useLanguage();
 
   const testimonials = [
     {
@@ -49,23 +50,23 @@ export function About() {
   const values = [
     {
       icon: Award,
-      title: "Excellence",
-      description: "We strive for the highest standards in all our services, ensuring exceptional outcomes for every client."
-    },
-    {
-      icon: Users,
-      title: "Client-Focused",
-      description: "Your success is our priority. We provide personalized attention and tailored solutions for each individual."
-    },
-    {
-      icon: Globe,
-      title: "Global Reach",
-      description: "With partnerships worldwide, we open doors to opportunities across continents and cultures."
+      title: t.about.values.excellence.title,
+      description: t.about.values.excellence.description
     },
     {
       icon: Heart,
-      title: "Integrity",
-      description: "We operate with transparency, honesty, and ethical practices in all our business dealings."
+      title: t.about.values.integrity.title,
+      description: t.about.values.integrity.description
+    },
+    {
+      icon: Globe,
+      title: t.about.values.innovation.title,
+      description: t.about.values.innovation.description
+    },
+    {
+      icon: Users,
+      title: t.about.values.support.title,
+      description: t.about.values.support.description
     }
   ];
 
@@ -102,14 +103,14 @@ export function About() {
             className="inline-flex items-center space-x-2 bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium mb-6"
           >
             <Sparkles className="h-4 w-4" />
-            <span>About Us</span>
+            <span>{t.about.title}</span>
           </motion.div>
 
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 font-dm-sans">
-            <span className="gradient-text">About Patrick Travel</span>
+            <span className="gradient-text">{t.about.title}</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Your trusted partner for global opportunities, dedicated to making your travel and education dreams come true.
+            {t.about.subtitle}
           </p>
         </motion.div>
 
@@ -124,7 +125,7 @@ export function About() {
             className="glass p-8 rounded-3xl border border-white/20"
           >
             <h3 className="text-4xl font-bold text-gray-900 mb-8 font-dm-sans">
-              Our Story
+              {t.about.story.title}
             </h3>
             <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
               <motion.p
@@ -133,9 +134,7 @@ export function About() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                Founded in Cameroon with a vision to bridge the gap between local talent and global opportunities,
-                Patrick Travel Services has been empowering individuals to achieve their international aspirations
-                for over five years.
+                {t.about.story.content[0]}
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -143,9 +142,7 @@ export function About() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                What started as a small visa assistance service has grown into a comprehensive travel and education
-                consultancy, serving clients across Africa and beyond. Our deep understanding of both local needs
-                and international requirements sets us apart.
+                {t.about.story.content[1]}
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -153,9 +150,9 @@ export function About() {
                 transition={{ duration: 0.6, delay: 0.6 }}
                 viewport={{ once: true }}
               >
-                We believe that everyone deserves the chance to pursue their dreams, whether it's studying at a
-                world-class university, building a career abroad, or simply exploring new horizons. That's why
-                we're committed to providing accessible, reliable, and professional services to all our clients.
+                We believe that everyone deserves the chance to pursue their dreams, whether it&apos;s studying at a
+                world-class university, building a career abroad, or simply exploring new horizons. That&apos;s why
+                we&apos;re committed to providing accessible, reliable, and professional services to all our clients.
               </motion.p>
             </div>
             
@@ -252,7 +249,7 @@ export function About() {
                 </div>
                 
                 <p className="text-xl text-gray-700 mb-8 italic leading-relaxed">
-                  "{testimonials[currentTestimonial].content}"
+                  "                  &ldquo;{testimonials[currentTestimonial].content}&rdquo;"
                 </p>
                 
                 <div className="flex items-center justify-center space-x-4">

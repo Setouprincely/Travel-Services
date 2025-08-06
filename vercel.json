@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/flight-booking",
+      "dest": "/flight-booking"
+    },
+    {
+      "src": "/housing",
+      "dest": "/housing"
+    },
+    {
+      "src": "/jobs",
+      "dest": "/jobs"
+    },
+    {
+      "src": "/study-abroad",
+      "dest": "/study-abroad"
+    },
+    {
+      "src": "/visa-assistance",
+      "dest": "/visa-assistance"
+    },
+    {
+      "src": "/visa-assistance/application",
+      "dest": "/visa-assistance/application"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_APP_URL": "https://travel-services.vercel.app",
+    "NEXT_PUBLIC_API_URL": "https://api.travel-services.vercel.app"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_APP_URL": "https://travel-services.vercel.app",
+      "NEXT_PUBLIC_API_URL": "https://api.travel-services.vercel.app"
+    }
+  }
+}

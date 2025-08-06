@@ -11,14 +11,17 @@ import {
   Star,
   Heart
 } from "@/components/ui/icons";
+import { useLanguage } from "@/contexts/language-context";
 
 export function Stats() {
+  const { t } = useLanguage();
+  
   const mainStats = [
     {
       icon: Users,
       value: 1000,
       suffix: "+",
-      label: "Happy Clients",
+      label: t.hero.stats.clients,
       description: "Satisfied customers who achieved their dreams",
       color: "text-blue-600"
     },
@@ -26,7 +29,7 @@ export function Stats() {
       icon: Globe,
       value: 25,
       suffix: "+",
-      label: "Countries Served",
+      label: t.hero.stats.countries,
       description: "Global destinations we help you reach",
       color: "text-green-600"
     },

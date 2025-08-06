@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import React from "react";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/enhanced-button";
+import { useLanguage } from "@/contexts/language-context";
 import {
   MapPin,
   Phone,
@@ -11,11 +11,11 @@ import {
   Clock,
   Send,
   MessageSquare,
-  CheckCircle,
-  Sparkles
+  CheckCircle
 } from "@/components/ui/icons";
 
 export function Contact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,9 +27,9 @@ export function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const services = [
-    "Visa Assistance",
-    "Study Abroad",
-    "Flight Booking",
+    t.services.visa.title,
+    t.services.study.title,
+    t.services.flights.title,
     "Housing Solutions",
     "Jobs & Internships",
     "Parcel Shipping",
@@ -73,10 +73,10 @@ export function Contact() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Get In Touch
+            {t.contact.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to start your journey? Contact our expert team for personalized assistance with your travel and education needs.
+            {t.contact.subtitle}
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export function Contact() {
           {/* Contact Information */}
           <div>
             <h3 className="text-3xl font-bold text-gray-900 mb-8">
-              Contact Information
+              {t.contact.title}
             </h3>
             
             <div className="space-y-6 mb-8">
@@ -93,11 +93,9 @@ export function Contact() {
                   <MapPin className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Office Address</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">{t.contact.address}</h4>
                   <p className="text-gray-600">
-                    123 Business District<br />
-                    Douala, Cameroon<br />
-                    P.O. Box 12345
+                    {t.contact.address}
                   </p>
                 </div>
               </div>
@@ -107,11 +105,9 @@ export function Contact() {
                   <Phone className="h-6 w-6 text-green-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Phone Numbers</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">{t.contact.phone}</h4>
                   <p className="text-gray-600">
-                    Main: +237 123 456 789<br />
-                    WhatsApp: +237 987 654 321<br />
-                    Emergency: +237 555 000 111
+                    {t.contact.phone}
                   </p>
                 </div>
               </div>
@@ -121,11 +117,9 @@ export function Contact() {
                   <Mail className="h-6 w-6 text-purple-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Email Addresses</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">{t.contact.email}</h4>
                   <p className="text-gray-600">
-                    General: info@patricktravel.cm<br />
-                    Visa: visa@patricktravel.cm<br />
-                    Education: education@patricktravel.cm
+                    {t.contact.email}
                   </p>
                 </div>
               </div>
@@ -135,11 +129,9 @@ export function Contact() {
                   <Clock className="h-6 w-6 text-orange-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Business Hours</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">{t.contact.hours}</h4>
                   <p className="text-gray-600">
-                    Monday - Friday: 8:00 AM - 6:00 PM<br />
-                    Saturday: 9:00 AM - 4:00 PM<br />
-                    Sunday: Closed
+                    {t.contact.hours}
                   </p>
                 </div>
               </div>
@@ -156,7 +148,7 @@ export function Contact() {
                   iconPosition="left"
                   className="bg-green-600 hover:bg-green-700"
                 >
-                  WhatsApp Chat
+                  {t.contact.form.message}
                 </PrimaryButton>
                 <SecondaryButton
                   size="lg"
@@ -164,7 +156,7 @@ export function Contact() {
                   icon={<Phone className="h-5 w-5" />}
                   iconPosition="left"
                 >
-                  Call Now
+                  {t.contact.phone}
                 </SecondaryButton>
               </div>
             </div>
@@ -189,17 +181,17 @@ export function Contact() {
           <div>
             <div className="bg-white rounded-2xl shadow-xl p-8">
               <h3 className="text-3xl font-bold text-gray-900 mb-8">
-                Send Us a Message
+                {t.contact.title}
               </h3>
 
               {isSubmitted ? (
                 <div className="text-center py-12">
                   <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
                   <h4 className="text-2xl font-bold text-gray-900 mb-2">
-                    Message Sent Successfully!
+                    {t.common.success}
                   </h4>
                   <p className="text-gray-600">
-                    Thank you for contacting us. We'll get back to you within 24 hours.
+                    {t.contact.form.send}
                   </p>
                 </div>
               ) : (
@@ -207,7 +199,7 @@ export function Contact() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                        Full Name *
+                        {t.contact.form.name} *
                       </label>
                       <input
                         type="text"
@@ -217,13 +209,13 @@ export function Contact() {
                         value={formData.name}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Your full name"
+                        placeholder={t.contact.form.name}
                       />
                     </div>
 
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
+                        {t.contact.form.email} *
                       </label>
                       <input
                         type="email"
@@ -233,7 +225,7 @@ export function Contact() {
                         value={formData.email}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="your.email@example.com"
+                        placeholder={t.contact.form.email}
                       />
                     </div>
                   </div>
@@ -241,7 +233,7 @@ export function Contact() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                        Phone Number
+                        {t.contact.phone}
                       </label>
                       <input
                         type="tel"
@@ -250,13 +242,13 @@ export function Contact() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="+237 123 456 789"
+                        placeholder={t.contact.phone}
                       />
                     </div>
 
                     <div>
                       <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                        Service of Interest *
+                        {t.services.title} *
                       </label>
                       <select
                         id="service"
@@ -266,7 +258,7 @@ export function Contact() {
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       >
-                        <option value="">Select a service</option>
+                        <option value="">{t.common.search}</option>
                         {services.map((service) => (
                           <option key={service} value={service}>
                             {service}
@@ -278,7 +270,7 @@ export function Contact() {
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
+                      {t.contact.form.message} *
                     </label>
                     <textarea
                       id="message"
@@ -288,7 +280,7 @@ export function Contact() {
                       value={formData.message}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                      placeholder="Tell us about your requirements, timeline, and any specific questions you have..."
+                      placeholder={t.contact.form.message}
                     />
                   </div>
 
@@ -304,7 +296,7 @@ export function Contact() {
                     iconPosition="right"
                     onClick={handleSubmit}
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    {isSubmitting ? t.common.loading : t.contact.form.send}
                   </PrimaryButton>
 
                   <p className="text-sm text-gray-500 text-center">

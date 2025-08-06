@@ -207,8 +207,8 @@ export default function StudyAbroadPage() {
                   </select>
                   <select className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent">
                     <option>Study Level</option>
-                    <option>Bachelor's</option>
-                    <option>Master's</option>
+                    <option>Bachelor&apos;s</option>
+                    <option>Master&apos;s</option>
                     <option>PhD</option>
                   </select>
                   <Button className="w-full bg-green-600 hover:bg-green-700 py-3 rounded-xl font-semibold">

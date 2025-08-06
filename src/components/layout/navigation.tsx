@@ -5,8 +5,9 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Globe, Phone, Mail } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { smoothScrollTo } from "@/lib/smooth-scroll";
-import { useLanguage, LanguageSwitcher } from "@/contexts/language-context";
+import { useLanguage } from "@/contexts/language-context";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,8 +47,8 @@ export function Navigation() {
 
   return (
     <motion.nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md ${
+        scrolled ? 'bg-background/80 shadow-lg' : 'bg-transparent'
           ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg'
           : 'bg-white/80 backdrop-blur-sm'
       }`}
