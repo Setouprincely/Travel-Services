@@ -6,12 +6,13 @@ const getButtonClasses = (variant: string = "default", size: string = "default")
 
   const variantClasses = {
     default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl",
+    primary: "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl",
     destructive: "bg-error text-white hover:bg-error/90 shadow-lg hover:shadow-xl",
     outline: "border-2 border-primary/20 bg-background/50 text-primary hover:bg-primary hover:text-primary-foreground shadow-lg hover:shadow-xl backdrop-blur-sm",
     secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-lg hover:shadow-xl",
     ghost: "hover:bg-accent/10 hover:text-accent",
     link: "text-primary underline-offset-4 hover:underline",
-    premium: "bg-gradient-to-r from-primary via-accent to-primary text-primary-foreground hover:opacity-90 shadow-lg hover:shadow-xl animate-gradient",
+    premium: "bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white hover:opacity-90 shadow-lg hover:shadow-xl animate-gradient transition-all duration-300 transform hover:scale-105 backdrop-blur-sm border border-white/10",
   };
 
   const sizeClasses = {
@@ -26,7 +27,7 @@ const getButtonClasses = (variant: string = "default", size: string = "default")
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "premium";
+  variant?: "default" | "primary" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "premium";
   size?: "default" | "sm" | "lg" | "icon";
 }
 

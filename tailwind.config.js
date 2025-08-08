@@ -44,6 +44,18 @@ module.exports = {
         'premium-lg': '0 0 0 3px hsl(var(--primary))',
       },
       colors: {
+        forest: {
+          50: '#f4f9f4',
+          100: '#e6f3e6',
+          200: '#bfe2bf',
+          300: '#97d097',
+          400: '#70be70',
+          500: '#48ac48',
+          600: '#3a8a3a',
+          700: '#2b672b',
+          800: '#1d451d',
+          900: '#0e220e',
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -26,8 +26,9 @@ export function Navigation() {
 
   const navItems = [
     { href: "home", label: t.nav.home },
-    { href: "services", label: t.nav.services },
     { href: "about", label: t.nav.about },
+    { href: "testimonials", label: "Testimonials" },
+    { href: "payments", label: "Payments" },
     { href: "contact", label: t.nav.contact },
   ];
 
@@ -41,17 +42,11 @@ export function Navigation() {
     { href: "/study-abroad", label: t.nav.studyAbroad },
     { href: "/flight-booking", label: t.nav.flightBooking },
     { href: "/housing", label: t.nav.housing },
-    { href: "/jobs", label: t.nav.jobs },
-    { href: "/parcel-shipping", label: t.nav.parcelShipping },
   ];
 
   return (
     <motion.nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md ${
-        scrolled ? 'bg-background/80 shadow-lg' : 'bg-transparent'
-          ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg'
-          : 'bg-white/80 backdrop-blur-sm'
-      }`}
+      className={`fixed top-0 w-full z-50 ${scrolled ? 'bg-white shadow-lg' : 'bg-white'}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -79,7 +74,7 @@ export function Navigation() {
                 <motion.button
                   key={item.href}
                   onClick={() => handleNavClick(item.href)}
-                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors relative group"
+                  className="text-gray-700 hover:text-forest-600 px-3 py-2 rounded-md text-sm font-medium transition-colors relative group"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -88,7 +83,7 @@ export function Navigation() {
                 >
                   {item.label}
                   <motion.div
-                    className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 origin-left"
+                    className="absolute bottom-0 left-0 w-full h-0.5 bg-forest-600 origin-left"
                     initial={{ scaleX: 0 }}
                     whileHover={{ scaleX: 1 }}
                     transition={{ duration: 0.3 }}
@@ -118,17 +113,14 @@ export function Navigation() {
             </div>
           </div>
 
-          {/* Contact Info & Language Switcher */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <div className="flex items-center space-x-2 text-sm text-gray-600">
-              <Phone className="h-4 w-4" />
-              <span>+237 123 456 789</span>
-            </div>
-            <div className="flex items-center space-x-2 text-sm text-gray-600">
-              <Mail className="h-4 w-4" />
-              <span>info@patricktravel.cm</span>
-            </div>
-            <LanguageSwitcher />
+          {/* Auth Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <Link href="/auth/login">
+              <Button variant="premium" size="sm">Login</Button>
+            </Link>
+            <Link href="/auth/register">
+              <Button variant="premium" size="sm">Register</Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -177,6 +169,22 @@ export function Navigation() {
               ))}
             </div>
             
+            {/* Mobile Auth Buttons */}
+            <div className="px-3 py-2 border-t border-gray-200">
+              <div className="flex flex-col space-y-2">
+                <Link href="/auth/login">
+                  <Button variant="premium" className="w-full justify-center">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/auth/register">
+                  <Button variant="premium" className="w-full justify-center">
+                    Register
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
             {/* Mobile Contact */}
             <div className="px-3 py-2 border-t border-gray-200">
               <div className="flex items-center space-x-2 text-sm text-gray-600 mb-2">

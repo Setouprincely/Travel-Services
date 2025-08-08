@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/language-context";
+import { AuthProvider } from "@/contexts/auth-context";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,9 +38,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body className="font-inter antialiased bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <AuthProvider>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   );

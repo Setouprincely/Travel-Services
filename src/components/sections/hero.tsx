@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Plane, GraduationCap, MapPin, Briefcase, Star, Users, Globe } from "@/components/ui/icons";
 import { useLanguage } from "@/contexts/language-context";
@@ -146,6 +147,20 @@ export function Hero() {
                   <IconComponent className="h-20 w-20 text-primary" />
                 </div>
               </motion.div>
+
+              {/* Auth Buttons */}
+              <div className="flex justify-center gap-4 mb-8">
+                <Link href="/auth/login">
+                  <Button variant="premium" size="lg" className="text-lg px-8">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/auth/register">
+                  <Button variant="premium" size="lg" className="text-lg px-8">
+                    Register
+                  </Button>
+                </Link>
+              </div>
 
               {/* Main heading with gradient text */}
               <motion.h1
