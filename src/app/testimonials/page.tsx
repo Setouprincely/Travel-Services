@@ -48,7 +48,7 @@ const testimonials = [
   }
 ];
 
-export default function TestimonialsPage() {
+export default function TestimonialsPage() {ONCE 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-forest-50 to-forest-100">
       <Navigation />

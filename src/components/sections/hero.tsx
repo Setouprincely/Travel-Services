@@ -7,10 +7,12 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Plane, GraduationCap, MapPin, Briefcase, Star, Users, Globe } from "@/components/ui/icons";
 import { useLanguage } from "@/contexts/language-context";
+import { useAuth } from "@/contexts/auth-context";
 import { smoothScrollTo } from "@/lib/smooth-scroll";
 
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { user } = useAuth();
   const { t } = useLanguage() || {
     t: {
       hero: {
@@ -148,19 +150,42 @@ export function Hero() {
                 </div>
               </motion.div>
 
-              {/* Auth Buttons */}
-              <div className="flex justify-center gap-4 mb-8">
-                <Link href="/auth/login">
-                  <Button variant="premium" size="lg" className="text-lg px-8">
-                    Login
-                  </Button>
-                </Link>
-                <Link href="/auth/register">
-                  <Button variant="premium" size="lg" className="text-lg px-8">
-                    Register
-                  </Button>
-                </Link>
-              </div>
+              {/* Auth Buttons - Only show when user is not authenticated */}
+              {!user && (
+                <motion.div
+                  className="flex justify-center gap-4 mb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                >
+                  <Link href="/auth/login">
+                    <Button variant="premium" size="lg" className="text-lg px-8">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/auth/register">
+                    <Button variant="premium" size="lg" className="text-lg px-8">
+                      Register
+                    </Button>
+                  </Link>
+                </motion.div>
+              )}
+
+              {/* Welcome Message for Authenticated Users */}
+              {user && (
+                <motion.div
+                  className="mb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                >
+                  <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-600/20 backdrop-blur-sm">
+                    <span className="text-lg font-medium text-blue-600">
+                      Welcome back, {user.firstName}! 👋
+                    </span>
+                  </div>
+                </motion.div>
+              )}
 
               {/* Main heading with gradient text */}
               <motion.h1

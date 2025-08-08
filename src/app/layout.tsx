@@ -18,6 +18,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('http://localhost:3000'),
   title: "Patrick Travel Services - Visa Support & Study Abroad",
   description: "Professional visa assistance, study abroad programs, flight booking, housing, and job placement services in Cameroon. Expert support for Africa, Europe, Canada, and UAE destinations.",
   keywords: "visa assistance, study abroad, travel services, Cameroon, flight booking, housing, job placement",

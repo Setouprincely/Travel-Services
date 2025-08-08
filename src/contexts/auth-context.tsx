@@ -72,6 +72,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const register = async (userData: Omit<User, 'id'> & { password: string }) => {
     try {
+      console.log('Attempting registration with data:', userData);
+      
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
@@ -80,19 +82,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify(userData),
       });
 
+      const responseData = await response.json();
+      console.log('Registration response:', responseData);
+
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Registration failed');
+        throw new Error(responseData.message || 'Registration failed');
       }
 
-      const data = await response.json();
-      
       // Store the token in a cookie
-      document.cookie = `token=${data.token}; path=/; max-age=86400; secure; samesite=strict`;
+      document.cookie = `token=${responseData.token}; path=/; max-age=86400; secure; samesite=strict`;
       
-      setUser(data.user);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      setUser(responseData.user);
+      localStorage.setItem('user', JSON.stringify(responseData.user));
     } catch (error) {
+      console.error('Registration error in context:', error);
       throw error;
     }
   };

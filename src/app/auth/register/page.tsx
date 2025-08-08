@@ -13,6 +13,7 @@ export default function RegisterPage() {
   const { register } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     confirmEmail: "",
@@ -28,6 +29,8 @@ export default function RegisterPage() {
     idValidityDate: "",
     idNumber: "",
     idIssuingCountry: "",
+    password: "",
+    confirmPassword: "",
     acceptTerms: false,
     acceptPatrickServices: false,
   });
@@ -44,12 +47,20 @@ export default function RegisterPage() {
     e.preventDefault();
     
     const newErrors: Record<string, string> = {};
-    if (!formData.name) newErrors.name = "Name is required";
+    if (!formData.firstName) newErrors.firstName = "First name is required";
+    if (!formData.surname) newErrors.surname = "Surname is required";
     if (!formData.email) newErrors.email = "Email is required";
+    if (formData.email !== formData.confirmEmail) newErrors.confirmEmail = "Emails do not match";
     if (!formData.password) newErrors.password = "Password is required";
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
+    if (!formData.gender) newErrors.gender = "Gender is required";
+    if (!formData.dateOfBirth) newErrors.dateOfBirth = "Date of birth is required";
+    if (!formData.birthCountry) newErrors.birthCountry = "Birth country is required";
+    if (!formData.birthPlace) newErrors.birthPlace = "Birth place is required";
+    if (!formData.nationality) newErrors.nationality = "Nationality is required";
+    if (!formData.idType) newErrors.idType = "ID type is required";
+    if (!formData.idNumber) newErrors.idNumber = "ID number is required";
+    if (!formData.idIssuingCountry) newErrors.idIssuingCountry = "ID issuing country is required";
     
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -58,8 +69,24 @@ export default function RegisterPage() {
 
     setIsSubmitting(true);
     try {
-      await register(formData.name, formData.email, formData.password);
-      router.push('/auth/profile');
+      const userData = {
+        firstName: formData.firstName,
+        lastName: formData.surname,
+        email: formData.email,
+        password: formData.password,
+        accountType: 'student', // Assuming default, adjust if needed
+        country: formData.idIssuingCountry,
+        nationality: formData.nationality,
+        dateOfBirth: formData.dateOfBirth,
+        placeOfBirth: formData.birthPlace,
+        gender: formData.gender,
+        documentType: formData.idType,
+        documentNumber: formData.idNumber,
+        documentIssueDate: formData.idValidityDate,
+        hasHandicap: false, // Adjust if there's a field
+      };
+      await register(userData);
+      setRegistrationSuccess(true);
     } catch (error) {
       setErrors({
         form: "Registration failed. Please try again."
@@ -91,13 +118,38 @@ export default function RegisterPage() {
         </div>
 
         <div className="mt-8 bg-white shadow-xl rounded-lg p-8 border border-gray-200">
-          {errors.form && (
-            <div className="mb-4 p-3 rounded bg-red-50 border border-red-200 text-red-600 text-sm">
-              {errors.form}
+          {registrationSuccess ? (
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900">Registration Successful!</h3>
+              <p className="text-gray-600">
+                We've sent a confirmation email to <strong>{formData.email}</strong>. 
+                Please check your inbox and click the confirmation link to activate your account.
+              </p>
+              <div className="space-y-3 pt-4">
+                <Link href="/auth/login">
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                    Go to Login
+                  </Button>
+                </Link>
+                <p className="text-sm text-gray-500">
+                  Didn't receive the email? Check your spam folder or contact support.
+                </p>
+              </div>
             </div>
-          )}
+          ) : (
+            <>
+              {errors.form && (
+                <div className="mb-4 p-3 rounded bg-red-50 border border-red-200 text-red-600 text-sm">
+                  {errors.form}
+                </div>
+              )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
             <div className="mb-6">
               <p className="text-sm text-gray-600 mb-4">
                 This address will serve as my login to access my account and, if I accept, to receive information messages from my patrick services and the establishments to which I wish to apply.
@@ -121,6 +173,26 @@ export default function RegisterPage() {
                 value={formData.confirmEmail}
                 onChange={handleInputChange}
                 error={errors.confirmEmail}
+              />
+              <FormField
+                label="Password *"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                value={formData.password}
+                onChange={handleInputChange}
+                error={errors.password}
+              />
+              <FormField
+                label="Confirm Password *"
+                name="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                required
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                error={errors.confirmPassword}
               />
             </div>
 
@@ -298,24 +370,26 @@ export default function RegisterPage() {
             </div>
           </form>
 
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Or
-                </span>
-              </div>
-            </div>
+              <div className="mt-6">
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-300" />
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">
+                      Or
+                    </span>
+                  </div>
+                </div>
 
-            <div className="mt-6 text-center">
-              <Link href="/auth/login" className="text-forest-600 hover:text-forest-500">
-                Already have an account? <span className="font-semibold">Sign in</span>
-              </Link>
-            </div>
-          </div>
+                <div className="mt-6 text-center">
+                  <Link href="/auth/login" className="text-forest-600 hover:text-forest-500">
+                    Already have an account? <span className="font-semibold">Sign in</span>
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </motion.div>
     </div>
